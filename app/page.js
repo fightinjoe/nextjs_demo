@@ -29,7 +29,8 @@ export default function Home() {
       </div>
 
       <div className={styles.center}>
-        Hello, world!
+        <h1>Ozeriany Property Owners Association</h1>
+        <p>PO Box 417, Eldred, NY 12737</p>
       </div>
 
       <div className={styles.grid}>
