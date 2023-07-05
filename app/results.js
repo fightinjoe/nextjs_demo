@@ -34,18 +34,26 @@ export default function Results({ sellers }) {
 
   return (
     <>
-      <input type="text" placeholder="Search" onChange={ handleSearch } />
+      <header className={ styles.header }>
+        <h1>LocalBy</h1>
 
-      { page > 0
-        ? <button onClick={ () => setPage(page - 1) }>Previous</button>
-        : null
-      }
-      <span>Page { page + 1 } / { Math.ceil(sellers.length / 10) }</span>
-      {
-        page < sellers.length - 1
-        ? <button onClick={ () => setPage(page + 1) }>Next</button>
-        : null
-      }
+        <div className={ styles.search }>
+          <input type="text" placeholder="Search" onChange={ handleSearch } />
+        </div>
+
+        <div className={ styles.pagination }>
+          { page > 0
+            ? <button onClick={ () => setPage(page - 1) }>&lt;</button>
+            : null
+          }
+          <span>Page { page + 1 } / { Math.ceil(sellers.length / 10) }</span>
+          {
+            page < sellers.length - 1
+            ? <button onClick={ () => setPage(page + 1) }>&gt;</button>
+            : null
+          }
+        </div>  
+      </header>
 
       <div id={ styles.sellers }>
         { sellers.slice(page*10, page*10+10).map( (seller, i) => (<Seller key={i} seller={ seller } />) )}

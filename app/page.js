@@ -74,8 +74,6 @@ export default async function Home() {
   return (
     <main className={styles.main}>
       <div className={styles.description}>
-        <h1>{`${sellerRows.length} sellers`}</h1>
-        <h2>{`${productRows.length} products`}</h2>
         { <Results sellers={ JSON.stringify(sellers) } /> }
       </div>
     </main>
