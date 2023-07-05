@@ -1,8 +1,10 @@
-import Image from 'next/image'
+// import Image from 'next/image'
 import styles from './page.module.css'
 
 import { GoogleSpreadsheet } from 'google-spreadsheet';
 import { JWT } from 'google-auth-library';
+
+import Seller from './seller';
 
 export default async function Home() {
 
@@ -28,13 +30,32 @@ export default async function Home() {
   await doc.loadInfo();
 
   let [,sellerRows] = await loadSheetAndRows('Sellers');
-  let [productSheet,productRows] = await loadSheetAndRows('Products');
+  let [,productRows] = await loadSheetAndRows('Products');
+
+  const sellers = sellerRows.map( row => ({
+    avatar_src: row.get('avatar_src'),
+    owner: row.get('owner'),
+    username: row.get('username'),
+    store: row.get('store'),
+    location: row.get('location'),
+    products: productRows
+      .filter( product => product.get('username') === row.get('username') )
+      .map( prow => ({
+        link_href: prow.get('link_href'),
+        img_src: prow.get('img_src'),
+        title: prow.get('title'),
+        price: prow.get('price'),
+      }))
+  }));
 
   return (
     <main className={styles.main}>
       <div className={styles.description}>
         <h1>{`${sellerRows.length} sellers`}</h1>
         <h2>{`${productRows.length} products`}</h2>
+        <div id={ styles.sellers }>
+          { sellers.slice(0, 10).map( seller => (<Seller seller={ seller } />) )}
+        </div>
       </div>
     </main>
   )
