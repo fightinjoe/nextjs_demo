@@ -54,7 +54,7 @@ export default async function Home() {
         <h1>{`${sellerRows.length} sellers`}</h1>
         <h2>{`${productRows.length} products`}</h2>
         <div id={ styles.sellers }>
-          { sellers.slice(0, 10).map( seller => (<Seller seller={ seller } />) )}
+          { sellers.slice(0, 10).map( (seller, i) => (<Seller key={i} seller={ seller } />) )}
         </div>
       </div>
     </main>
