@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "encoding": "^0.1.13",
     "eslint": "8.42.0",
     "eslint-config-next": "13.4.5",
     "google-auth-library": "^8.9.0",
