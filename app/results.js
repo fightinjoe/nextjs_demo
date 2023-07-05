@@ -27,9 +27,14 @@ export default function Results({ sellers }) {
     ));
   }
 
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+    setPage(0);
+  }
+
   return (
     <>
-      <input type="text" placeholder="Search" onChange={ (e) => setSearch(e.target.value) } />
+      <input type="text" placeholder="Search" onChange={ handleSearch } />
 
       { page > 0
         ? <button onClick={ () => setPage(page - 1) }>Previous</button>
