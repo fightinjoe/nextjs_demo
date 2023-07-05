@@ -9,9 +9,28 @@ export default function Results({ sellers }) {
   sellers = JSON.parse(sellers);
 
   let [page, setPage] = useState(0);
+  let [search, setSearch] = useState('');
+
+  if (search) {
+    sellers = sellers
+      .map( (seller) => {
+        const match = seller.search.match(new RegExp(search, 'ig')) || [];
+        seller.match = match.length;
+        return seller;
+      })
+      .filter( seller => seller.match )
+      .sort( (a, b) => b.match - a.match );
+    
+    
+    sellers.filter( (seller) => (
+      seller.search.indexOf(search) > -1
+    ));
+  }
 
   return (
     <>
+      <input type="text" placeholder="Search" onChange={ (e) => setSearch(e.target.value) } />
+
       { page > 0
         ? <button onClick={ () => setPage(page - 1) }>Previous</button>
         : null

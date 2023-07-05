@@ -32,7 +32,7 @@ export default async function Home() {
   let [,sellerRows] = await loadSheetAndRows('Sellers');
   let [,productRows] = await loadSheetAndRows('Products');
 
-  const sellers = sellerRows.map( row => ({
+  let sellers = sellerRows.map( row => ({
     avatar_src: row.get('avatar_src'),
     owner: row.get('owner'),
     username: row.get('username'),
@@ -45,8 +45,23 @@ export default async function Home() {
         img_src: prow.get('img_src'),
         title: prow.get('title'),
         price: prow.get('price'),
-      }))
+        description: prow.get('description'),
+      })),
   }));
+
+  sellers = sellers.map( seller => {
+    seller.search = [
+      seller.owner,
+      seller.username,
+      seller.store,
+      seller.products.map( product => ([
+        product.title,
+        product.description
+      ].join("\n")))
+    ].join("\n");
+
+    return seller;
+  });
 
   return (
     <main className={styles.main}>
