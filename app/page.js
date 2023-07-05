@@ -32,13 +32,16 @@ export default async function Home() {
   let [,sellerRows] = await loadSheetAndRows('Sellers');
   let [,productRows] = await loadSheetAndRows('Products');
 
-  let sellers = sellerRows.map( row => ({
-    avatar_src: row.get('avatar_src'),
-    owner: row.get('owner'),
-    username: row.get('username'),
-    store: row.get('store'),
-    location: row.get('location'),
-    products: productRows
+  let sellers = sellerRows.map( row => {
+    let seller = {
+      avatar_src: row.get('avatar_src'),
+      owner: row.get('owner'),
+      username: row.get('username'),
+      store: row.get('store'),
+      location: row.get('location')
+    };
+
+    let products = productRows
       .filter( product => product.get('username') === row.get('username') )
       .map( prow => ({
         link_href: prow.get('link_href'),
@@ -46,8 +49,13 @@ export default async function Home() {
         title: prow.get('title'),
         price: prow.get('price'),
         description: prow.get('description'),
-      })),
-  }));
+      }));
+    
+    seller.product_count = products.length;
+    seller.products = products.slice(0,6);
+
+    return seller;
+  });
 
   sellers = sellers.map( seller => {
     seller.search = [

@@ -12,7 +12,7 @@ export default function Seller({ seller }) {
             <span>{ seller.store }</span>
           </div>
           <div className={ styles.summary }>
-            <span>{ seller.products.length } products</span>
+            <span>{ seller.product_count } products</span>
             <span>{ seller.location }</span>
           </div>
         </a>
