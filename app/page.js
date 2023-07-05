@@ -4,7 +4,7 @@ import styles from './page.module.css'
 import { GoogleSpreadsheet } from 'google-spreadsheet';
 import { JWT } from 'google-auth-library';
 
-import Seller from './seller';
+import Results from './results';
 
 export default async function Home() {
 
@@ -53,9 +53,7 @@ export default async function Home() {
       <div className={styles.description}>
         <h1>{`${sellerRows.length} sellers`}</h1>
         <h2>{`${productRows.length} products`}</h2>
-        <div id={ styles.sellers }>
-          { sellers.slice(0, 10).map( (seller, i) => (<Seller key={i} seller={ seller } />) )}
-        </div>
+        { <Results sellers={ JSON.stringify(sellers) } /> }
       </div>
     </main>
   )
