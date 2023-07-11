@@ -6,7 +6,7 @@ export default function Seller({ seller }) {
       
       <div className={ styles.avatar }>
         <a href={ seller.url } target="_blank">
-          <img src={ seller.avatar_src } alt={ seller.owner } />
+          <img src={ seller.avatar_src || seller.products[0].img_src } alt={ seller.owner } />
           <div className={ styles.store }>
             <span>{ seller.owner } <small>{ seller.username }</small></span>
             <span>{ seller.store }</span>
