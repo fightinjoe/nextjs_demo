@@ -1,0 +1,21 @@
+.main {
+  width: 393px;
+  margin: auto;
+  background: white;
+}
+
+.main ul, .main li {
+  margin: 0;
+  list-style: none;
+}
+
+.product a {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.product img {
+  width: 130px;
+  height: auto;
+}
