@@ -53,8 +53,6 @@ export default function Results({ sellers }) {
   return (
     <>
       <header className={ styles.header }>
-        <h1>LocalBy</h1>
-
         <div className={ styles.search }>
           <input type="text" placeholder="Search" onChange={ handleSearch } />
         </div>
@@ -64,7 +62,7 @@ export default function Results({ sellers }) {
             ? <button onClick={ () => setPage(page - 1) }>&lt;</button>
             : null
           }
-          <span>Page { page + 1 } / { Math.ceil(products.length / 10) }</span>
+          <span>{ page + 1 } / { Math.ceil(products.length / 10) }</span>
           {
             page < products.length - 1
             ? <button onClick={ () => setPage(page + 1) }>&gt;</button>
