@@ -24,8 +24,6 @@ export default function Results({ sellers }) {
   // Arrange the product array for easier printing
   let products = sellers.map( seller => {
     return seller.products
-      // take the first two products from each seller
-      .slice(0,2)
       // add the seller info to each product
       .map( product => {
         let { url, avatar_src, store, owner } = seller;
@@ -43,7 +41,7 @@ export default function Results({ sellers }) {
         product.description = d;
 
         // Add a search string for easier searching
-        product.search = `${ product.name } ${ product.description } ${ product.seller.store } ${ product.seller.owner }`;
+        product.search = `${ product.title } ${ product.description } ${ product.seller.store } ${ product.seller.owner }`;
 
         return product;
       });
