@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 import styles from './page.module.css'
-import Seller, { Product } from './seller';
+import { Product } from './seller';
 
 export default function Results({ products }) {
   products = JSON.parse(products);

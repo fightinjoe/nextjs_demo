@@ -8,6 +8,8 @@ export default async function ProductPage({ params }: { params: { product: strin
   
   return (
     <div className={ styles.page }>
+      <a className={ styles.back } href="/mobile">X</a>
+
       <img src={ product.img_src } alt={ product.title } />
       <div className={ styles.product }>
         <h1>{ product.title }</h1>
