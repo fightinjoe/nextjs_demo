@@ -57,20 +57,6 @@ export default async function Home() {
     return seller;
   });
 
-  sellers = sellers.map( seller => {
-    seller.search = [
-      seller.owner,
-      seller.username,
-      seller.store,
-      seller.products.map( product => ([
-        product.title,
-        product.description
-      ].join("\n")))
-    ].join("\n");
-
-    return seller;
-  });
-
   return (
     <main className={styles.main}>
       <div className={styles.description}>

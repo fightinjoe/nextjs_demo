@@ -42,12 +42,31 @@ export default function Results({ sellers }) {
 
         product.description = d;
 
+        // Add a search string for easier searching
+        product.search = `${ product.name } ${ product.description } ${ product.seller.store } ${ product.seller.owner }`;
+
         return product;
       });
   })
 
   // flatten to a 1 dimensional array of products
   products = products.reduce( (a, b) => a.concat(b) );
+
+  if (search) {
+    products = products
+      .map( (product) => {
+        const match = product.search.match(new RegExp(search, 'ig')) || [];
+        product.match = match.length;
+        return product;
+      })
+      .filter( product => product.match )
+      .sort( (a, b) => b.match - a.match );
+    
+    
+    products.filter( (product) => (
+      product.search.indexOf(search) > -1
+    ));
+  }
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
@@ -68,7 +87,7 @@ export default function Results({ sellers }) {
             ? <button onClick={ () => setPage(page - 1) }>&lt;</button>
             : null
           }
-          <span>{ page + 1 } / { Math.ceil(products.length / 10) }</span>
+          <span>{ page + 1 } / { Math.ceil(products.length / SIZE) }</span>
           {
             page < products.length - 1
             ? <button onClick={ () => setPage(page + 1) }>&gt;</button>
