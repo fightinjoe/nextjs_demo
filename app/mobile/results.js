@@ -35,8 +35,12 @@ export default function Results({ sellers }) {
         product.price = formatPrice(product.price);
 
         // Remove long URLs that wreck description formatting
-        product.description = product.description || '';
-        product.description = product.description.replace(/https?:\/\/[^\s]+/g, '');
+        let d = product.description || '';
+        d = d
+          .replace(/<[^>]+>/g, '')
+          .replace(/\S{21,}/g, '');
+
+        product.description = d;
 
         return product;
       });
@@ -49,6 +53,8 @@ export default function Results({ sellers }) {
     setSearch(e.target.value);
     setPage(0);
   }
+
+  const SIZE = 20;
 
   return (
     <>
@@ -72,7 +78,7 @@ export default function Results({ sellers }) {
       </header>
 
       <div id={ styles.products }>
-        { products.slice(page*10, page*10+10).map(
+        { products.slice(page*SIZE, (page+1)*SIZE).map(
           (product, i) => (<Product key={i} product={ product } />)
         )}
       </div>
