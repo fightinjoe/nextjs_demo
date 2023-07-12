@@ -10,10 +10,8 @@ export default async function Home() {
   const products = await getProductData();
 
   return (
-    <main className={styles.main}>
       <div className={styles.description}>
         { <Results products={ JSON.stringify(products) } /> }
       </div>
-    </main>
   )
 }
