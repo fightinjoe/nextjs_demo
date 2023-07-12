@@ -30,10 +30,15 @@ export function Product({ product }) {
     <li className={ styles.product }>
       <a href={ product.link_href } target="_blank">
         <img src={ product.img_src } alt={ product.title } />
-        <div className={ styles.description }>
+        <div className={ styles.details }>
           <h1>{ product.title }</h1>
-          <p className={ styles.store }>{ product.seller.store }</p>
-          <span className={ styles.price }>{ product.price }</span>
+          <p className={ styles.metadata }>
+            <span className={ styles.seller }>{ product.seller.owner }</span>
+            <span className={ styles.price }>{ product.price }</span>
+          </p>
+          <p className={ styles.description }>
+            { product.description }
+          </p>
         </div>
       </a>
     </li>

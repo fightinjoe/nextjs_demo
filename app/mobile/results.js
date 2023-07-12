@@ -11,6 +11,17 @@ export default function Results({ sellers }) {
   let [page, setPage] = useState(0);
   let [search, setSearch] = useState('');
 
+  // Format the price to look like $1.00  
+  const formatPrice = (price) => {
+    price = price.replace('$', '');
+
+    let pieces = [ ...price.split('.'), '00' ];
+    pieces[1] = pieces[1].padEnd(2, '0');
+
+    return `$${ pieces[0] }.${ pieces[1].slice(0,2) }`;
+  }
+
+  // Arrange the product array for easier printing
   let products = sellers.map( seller => {
     return seller.products
       // take the first two products from each seller
@@ -19,28 +30,20 @@ export default function Results({ sellers }) {
       .map( product => {
         let { url, avatar_src, store, owner } = seller;
         product.seller = { url, avatar_src, store, owner };
+
+        // Cleanup the price
+        product.price = formatPrice(product.price);
+
+        // Remove long URLs that wreck description formatting
+        product.description = product.description || '';
+        product.description = product.description.replace(/https?:\/\/[^\s]+/g, '');
+
         return product;
       });
   })
 
   // flatten to a 1 dimensional array of products
   products = products.reduce( (a, b) => a.concat(b) );
-
-  // if (search) {
-  //   sellers = sellers
-  //     .map( (seller) => {
-  //       const match = seller.search.match(new RegExp(search, 'ig')) || [];
-  //       seller.match = match.length;
-  //       return seller;
-  //     })
-  //     .filter( seller => seller.match )
-  //     .sort( (a, b) => b.match - a.match );
-    
-    
-  //   sellers.filter( (seller) => (
-  //     seller.search.indexOf(search) > -1
-  //   ));
-  // }
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
