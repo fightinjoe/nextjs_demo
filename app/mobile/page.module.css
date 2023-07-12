@@ -1,12 +1,18 @@
+@media screen and (min-width: 480px) {
+  .main {
+    width: 480px;
+    margin: auto;
+  }  
+}
+
 .main {
-  width: 393px;
-  margin: auto;
   background: white;
 }
 
 .main ul, .main li {
   margin: 0;
   list-style: none;
+  width: 100%;
 }
 
 .header {
