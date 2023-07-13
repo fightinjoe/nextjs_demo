@@ -11,7 +11,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <meta http-equiv="ScreenOrientation" content="autoRotate:disabled"></meta>
+      <meta httpEquiv="ScreenOrientation" content="autoRotate:disabled"></meta>
       <body className={inter.className}>{children}</body>
     </html>
   )

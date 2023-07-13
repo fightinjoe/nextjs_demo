@@ -1,15 +1,47 @@
 'use client'
 
 import { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 import styles from './page.module.css'
 import { Product } from './seller';
 
 export default function Results({ products }) {
+  // Products are passed from the Server and are serialized as JSON
   products = JSON.parse(products);
 
+  // State variables
   let [page, setPage] = useState(0);
   let [search, setSearch] = useState('');
+
+  const searchParams = useSearchParams();
+  const productID = searchParams.get('product');
+
+  if( productID ) {
+    let product = products.find( product => product.id === productID );
+
+    return (
+      <div className={ styles.productPage }>
+        <a className={ styles.back } href="/mobile">X</a>
+
+        <img src={ product.img_src } alt={ product.title } />
+        <div className={ styles.product }>
+          <h1>{ product.title }</h1>
+          <p>{ product.description }</p>
+          <div className={ styles.buy }>
+            <img src={ product.seller.avatar_src } alt={ product.seller.owner } />
+            <span className={ styles.owner }>{ product.seller.owner }</span>
+            <button>Buy for { product.price }</button>
+          </div>
+        </div>
+        {
+          product.img_src_1
+          ? <img src={ product.img_src_1 } alt={ product.img_alt_1 } />
+          : null
+        }
+      </div>
+    );
+  }
 
   if (search) {
     products = products
